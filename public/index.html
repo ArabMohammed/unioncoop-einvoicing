@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>E-Invoicing Supplier Data Update | Union Coop</title>
+  <meta name="description" content="Union Coop e-invoicing supplier data update form — provide the entity, registration, address and contact details required for UAE Peppol e-invoicing.">
+  <meta name="theme-color" content="#0B2545">
+  <link rel="icon" href="assets/img/logo.jpg?v=1" type="image/jpeg">
+  <link rel="preload" href="assets/img/logo.jpg?v=1" as="image">
+  <link rel="stylesheet" href="assets/css/styles.css?v=1">
+  <script src="assets/js/app.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#einvForm">Skip to the form</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <img class="site-header__logo" src="assets/img/logo.jpg?v=1" width="64" height="64" alt="Union Coop">
+      <div>
+        <h1 class="site-header__title">E-Invoicing</h1>
+        <p class="site-header__sub">Supplier Data Update Form</p>
+      </div>
+    </div>
+    <div class="brand-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+  </header>
+
+  <main id="main">
+    <!-- ============ Intro + Union Coop details ============ -->
+    <section class="wrap intro" id="introSection">
+      <div class="intro__letter">
+        <p class="intro__greeting">Dear Valued Supplier,</p>
+        <h2 class="intro__subject">Introduction of Electronic Invoicing (“e-invoicing”) in the United Arab Emirates</h2>
+        <p>The UAE Ministry of Finance will implement <strong>mandatory e-invoicing from 1&nbsp;January&nbsp;2027</strong> for B2B and B2G transactions. To exchange compliant e-invoices with your organisation through the <strong>Peppol network</strong>, we need to hold certain mandatory data about your entity.</p>
+        <details class="intro__more">
+          <summary>Read the full notice</summary>
+          <p>This follows Federal Decree-Law No. 16 of 2024 and Federal Decree-Law No. 17 of 2024, which amend the VAT Law and the Tax Procedures Law respectively to introduce e-invoicing requirements, and Ministerial Decisions No. 243 and No. 244 of 2025, which establish the Electronic Invoicing System and its implementation timeline. Businesses are required to go live in phases, based on predefined revenue thresholds.</p>
+          <p>Union Coop, as a responsible taxpayer, has already begun taking the necessary steps to comply. From go-live, e-invoices will be exchanged in structured XML format via our Accredited Service Provider (ASP), fulfilling all requirements of a UAE tax invoice. The fields below will appear on every electronic invoice exchanged with you.</p>
+        </details>
+        <p class="callout callout--deadline"><strong>Please complete this form within two weeks</strong> of receiving our notice. It takes about 5 minutes — your progress is saved on this device automatically.</p>
+      </div>
+
+      <aside class="uc-card" aria-labelledby="ucCardTitle">
+        <h2 class="uc-card__title" id="ucCardTitle">Union Coop Information</h2>
+        <p class="uc-card__lead">Our official registration details for your own e-invoicing setup:</p>
+        <dl class="uc-card__list">
+          <div><dt>Registered Legal Name</dt><dd>UNION COOP</dd></div>
+          <div><dt>VAT — Tax Registration Number (TRN)</dt><dd><span>100060342100003</span><button type="button" class="copy-btn" data-copy="100060342100003" aria-label="Copy Union Coop TRN">Copy</button></dd></div>
+          <div><dt>TIN for E-Invoicing</dt><dd><span>1000603421</span><button type="button" class="copy-btn" data-copy="1000603421" aria-label="Copy Union Coop TIN">Copy</button></dd></div>
+          <div><dt>Effective Registration Date</dt><dd>01/01/2018</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <noscript>
+      <div class="wrap"><p class="callout callout--error">This form needs JavaScript to validate and submit your data. Please enable JavaScript in your browser and reload the page.</p></div>
+    </noscript>
+
+    <!-- ============ Form ============ -->
+    <form class="wrap form" id="einvForm" novalidate autocomplete="on">
+      <h2 class="form__title">Data We Require From You</h2>
+      <p class="form__legend-key">Fields marked <span class="tag tag--req">Mandatory</span> must be completed. <span class="tag tag--cond">Conditional</span> fields become mandatory depending on your answers.</p>
+
+      <div class="callout callout--error" id="errorSummary" tabindex="-1" hidden>
+        <h3 class="callout__title">Please correct the following before submitting:</h3>
+        <ul id="errorList"></ul>
+      </div>
+
+      <div class="callout callout--info" id="draftNotice" hidden>
+        <span>We restored the details you entered earlier on this device.</span>
+        <button type="button" class="link-btn" id="clearDraft">Start over</button>
+      </div>
+
+      <!-- Honeypot (spam protection) — hidden from people -->
+      <div class="hp" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- ===== 1. Entity ===== -->
+      <fieldset class="section" id="sec-entity">
+        <legend class="section__title"><span class="section__num">1</span>Entity</legend>
+        <div class="grid grid--2">
+          <div class="field" data-field="legal_entity_name">
+            <div class="field__head"><label for="legal_entity_name">Legal Entity Name</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="legal_entity_name" name="legal_entity_name" type="text" required maxlength="200" autocomplete="organization" spellcheck="false" aria-describedby="legal_entity_name-hint legal_entity_name-err">
+            <p class="hint" id="legal_entity_name-hint">Full legal name as per trade licence — not the trading/brand name</p>
+            <p class="error" id="legal_entity_name-err"></p>
+          </div>
+
+          <div class="field" data-field="trade_name">
+            <div class="field__head"><label for="trade_name">Trade Name</label><span class="tag">Optional</span></div>
+            <input id="trade_name" name="trade_name" type="text" maxlength="200" spellcheck="false" aria-describedby="trade_name-hint trade_name-err">
+            <p class="hint" id="trade_name-hint">Trading / brand name, where different from the legal name</p>
+            <p class="error" id="trade_name-err"></p>
+          </div>
+
+          <div class="field" data-field="trn">
+            <div class="field__head"><label for="trn">Tax Registration Number (TRN)</label><span class="tag tag--req" id="trn-tag">Mandatory</span></div>
+            <input id="trn" name="trn" type="text" inputmode="numeric" required maxlength="15" data-digits placeholder="15 digits, e.g. 100XXXXXXXXXXXX" autocomplete="off" aria-describedby="trn-hint trn-err">
+            <p class="hint" id="trn-hint">15-digit VAT TRN. Required where you are VAT-registered; supports input VAT recovery on your side.</p>
+            <label class="check check--inline">
+              <input type="checkbox" id="not_vat_registered" name="not_vat_registered">
+              <span>Our entity is <strong>not</strong> VAT-registered</span>
+            </label>
+            <p class="error" id="trn-err"></p>
+          </div>
+
+          <div class="field" data-field="tin">
+            <div class="field__head"><label for="tin">Tax Identification Number (TIN)</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="tin" name="tin" type="text" inputmode="numeric" required maxlength="10" data-digits placeholder="10 digits" autocomplete="off" aria-describedby="tin-hint tin-err tin-peppol">
+            <p class="hint" id="tin-hint">TIN used to generate your Peppol ID — the routing address for e-invoices. For VAT-registered entities it is the first 10 digits of the TRN.</p>
+            <p class="peppol" id="tin-peppol" hidden>Your Peppol ID: <strong></strong></p>
+            <p class="error" id="tin-err"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ===== 2. Legal registration ===== -->
+      <fieldset class="section" id="sec-legal">
+        <legend class="section__title"><span class="section__num">2</span>Legal registration</legend>
+        <div class="grid grid--2">
+          <div class="field" data-field="reg_type">
+            <div class="field__head"><label for="reg_type">Legal Registration ID Type</label><span class="tag tag--req">Mandatory</span></div>
+            <select id="reg_type" name="reg_type" required aria-describedby="reg_type-hint reg_type-err">
+              <option value="">Select the document type…</option>
+              <option value="TL">TL — Trade Licence</option>
+              <option value="EID">EID — Emirates ID</option>
+              <option value="PAS">PAS — Passport</option>
+              <option value="CD">CD — Cabinet Decision</option>
+            </select>
+            <p class="hint" id="reg_type-hint">Type code TL, EID, PAS or CD</p>
+            <p class="error" id="reg_type-err"></p>
+          </div>
+
+          <div class="field" data-field="reg_authority" id="authorityField">
+            <div class="field__head"><label for="reg_authority">Legal Registration ID Issuing Authority</label><span class="tag tag--req">Mandatory</span></div>
+            <select id="reg_authority" name="reg_authority" required aria-describedby="reg_authority-hint reg_authority-err">
+              <option value="">Select the ID type first…</option>
+            </select>
+            <p class="hint" id="reg_authority-hint">Each authority has its own ID format — select it before entering the ID</p>
+            <p class="error" id="reg_authority-err"></p>
+          </div>
+
+          <div class="field" data-field="passport_country" id="passportField" hidden>
+            <div class="field__head"><label for="passport_country">Passport Issuing Country</label><span class="tag tag--cond">Conditional</span></div>
+            <select id="passport_country" name="passport_country" disabled aria-describedby="passport_country-hint passport_country-err">
+              <option value="">Select country…</option>
+            </select>
+            <p class="hint" id="passport_country-hint">Required because the registration ID type is Passport (PAS) — stored as ISO country code, e.g. IN, GB</p>
+            <p class="error" id="passport_country-err"></p>
+          </div>
+
+          <div class="field field--full" data-field="reg_authority_other" id="authorityOtherField" hidden>
+            <div class="field__head"><label for="reg_authority_other">Issuing Authority Name</label><span class="tag tag--cond">Conditional</span></div>
+            <input id="reg_authority_other" name="reg_authority_other" type="text" maxlength="120" disabled autocomplete="off" aria-describedby="reg_authority_other-hint reg_authority_other-err">
+            <p class="hint" id="reg_authority_other-hint">Full name of the issuing authority, exactly as shown on your licence</p>
+            <p class="error" id="reg_authority_other-err"></p>
+          </div>
+
+          <div class="field" data-field="reg_id">
+            <div class="field__head"><label for="reg_id">Legal Registration ID</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="reg_id" name="reg_id" type="text" required maxlength="30" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-describedby="reg_id-hint reg_id-err">
+            <p class="hint" id="reg_id-hint">Trade licence no. / Emirates ID / Passport no. / Cabinet Decision no.</p>
+            <p class="error" id="reg_id-err"></p>
+          </div>
+
+          <div class="field" data-field="reg_expiry">
+            <div class="field__head"><label for="reg_expiry">Legal Registration ID Expiry Date</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="reg_expiry" name="reg_expiry" type="date" required placeholder="YYYY-MM-DD" aria-describedby="reg_expiry-hint reg_expiry-err">
+            <p class="hint" id="reg_expiry-hint">Must be a future date — expired documents cannot be accepted</p>
+            <p class="error" id="reg_expiry-err"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ===== 3. Registered address ===== -->
+      <fieldset class="section" id="sec-address">
+        <legend class="section__title"><span class="section__num">3</span>Registered address</legend>
+        <div class="grid grid--2">
+          <div class="field" data-field="address_line1">
+            <div class="field__head"><label for="address_line1">Registered Address — Line 1</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="address_line1" name="address_line1" type="text" required maxlength="150" autocomplete="address-line1" aria-describedby="address_line1-hint address_line1-err">
+            <p class="hint" id="address_line1-hint">Street / area / building name</p>
+            <p class="error" id="address_line1-err"></p>
+          </div>
+          <div class="field" data-field="address_line2">
+            <div class="field__head"><label for="address_line2">Registered Address — Line 2</label><span class="tag">Optional</span></div>
+            <input id="address_line2" name="address_line2" type="text" maxlength="150" autocomplete="address-line2" aria-describedby="address_line2-hint address_line2-err">
+            <p class="hint" id="address_line2-hint">Additional address details — building, floor, office / unit no.</p>
+            <p class="error" id="address_line2-err"></p>
+          </div>
+        </div>
+        <div class="grid grid--4">
+          <div class="field" data-field="country">
+            <div class="field__head"><label for="country">Country</label><span class="tag tag--req">Mandatory</span></div>
+            <select id="country" name="country" required autocomplete="country" aria-describedby="country-err">
+              <option value="">Select country…</option>
+            </select>
+            <p class="error" id="country-err"></p>
+          </div>
+          <div class="field" data-field="emirate" id="emirateField">
+            <div class="field__head"><label for="emirate">Emirate</label><span class="tag tag--req">Mandatory</span></div>
+            <select id="emirate" name="emirate" required aria-describedby="emirate-hint emirate-err">
+              <option value="">Select emirate…</option>
+              <option value="AUH">Abu Dhabi</option>
+              <option value="DXB">Dubai</option>
+              <option value="SHJ">Sharjah</option>
+              <option value="AJM">Ajman</option>
+              <option value="UAQ">Umm Al Quwain</option>
+              <option value="RAK">Ras Al Khaimah</option>
+              <option value="FUJ">Fujairah</option>
+            </select>
+            <p class="hint" id="emirate-hint">Emirate where your entity is registered</p>
+            <p class="error" id="emirate-err"></p>
+          </div>
+          <div class="field" data-field="city">
+            <div class="field__head"><label for="city">City</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="city" name="city" type="text" required maxlength="60" list="cityList" autocomplete="address-level2" aria-describedby="city-err">
+            <datalist id="cityList"></datalist>
+            <p class="error" id="city-err"></p>
+          </div>
+          <div class="field" data-field="po_box">
+            <div class="field__head"><label for="po_box">P.O. Box / Postal Code</label><span class="tag">Optional</span></div>
+            <input id="po_box" name="po_box" type="text" inputmode="numeric" maxlength="10" autocomplete="postal-code" aria-describedby="po_box-hint po_box-err">
+            <p class="hint" id="po_box-hint">P.O. Box or postal code of the registered address</p>
+            <p class="error" id="po_box-err"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ===== 4. Free zone & phase ===== -->
+      <fieldset class="section" id="sec-freezone">
+        <legend class="section__title"><span class="section__num">4</span>Free zone and implementation phase</legend>
+        <div class="grid grid--2">
+          <div class="field" data-field="free_zone">
+            <fieldset class="radio-group" aria-describedby="free_zone-hint free_zone-err">
+              <legend class="field__head"><span class="field__label">Free Zone Entity</span><span class="tag tag--req">Mandatory</span></legend>
+              <p class="field__q">Is your entity registered as a Free Zone company?</p>
+              <div class="segmented">
+                <label><input type="radio" name="free_zone" value="yes" required><span>Yes</span></label>
+                <label><input type="radio" name="free_zone" value="no" required><span>No</span></label>
+              </div>
+            </fieldset>
+            <p class="hint" id="free_zone-hint">Drives the Free Trade Zone flag in the invoice transaction type code</p>
+            <p class="error" id="free_zone-err"></p>
+          </div>
+
+          <div class="field" data-field="beneficiary_id" id="beneficiaryField" hidden>
+            <div class="field__head"><label for="beneficiary_id">Beneficiary ID</label><span class="tag tag--cond">Conditional</span></div>
+            <input id="beneficiary_id" name="beneficiary_id" type="text" inputmode="numeric" maxlength="15" data-digits disabled placeholder="10-digit TIN or 15-digit TRN" autocomplete="off" aria-describedby="beneficiary_id-hint beneficiary_id-err">
+            <p class="hint" id="beneficiary_id-hint">TRN or TIN of the beneficiary of the supply — required because the Free Trade Zone flag applies</p>
+            <p class="error" id="beneficiary_id-err"></p>
+          </div>
+        </div>
+
+        <div class="field" data-field="phase">
+          <fieldset class="radio-group" aria-describedby="phase-err">
+            <legend class="field__head"><span class="field__label">e-Invoicing Implementation Phase</span><span class="tag tag--rec">Recommended</span></legend>
+            <p class="field__q">Select the applicable UAE e-Invoicing implementation phase for your entity</p>
+            <div class="choice-cards">
+              <label class="choice"><input type="radio" name="phase" value="P1"><span><strong>Phase 1</strong> Annual revenue exceeding AED 50 million <em>From January 2027</em></span></label>
+              <label class="choice"><input type="radio" name="phase" value="P2"><span><strong>Phase 2</strong> Annual revenue below AED 50 million <em>From July 2027</em></span></label>
+              <label class="choice"><input type="radio" name="phase" value="P3"><span><strong>Phase 3</strong> Government entities <em>From October 2027</em></span></label>
+            </div>
+          </fieldset>
+          <p class="error" id="phase-err"></p>
+        </div>
+      </fieldset>
+
+      <!-- ===== 5. Primary contact ===== -->
+      <fieldset class="section" id="sec-contact">
+        <legend class="section__title"><span class="section__num">5</span>Primary contact</legend>
+        <div class="grid grid--3">
+          <div class="field" data-field="contact_name">
+            <div class="field__head"><label for="contact_name">Primary Contact — Name</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="contact_name" name="contact_name" type="text" required maxlength="100" autocomplete="name" aria-describedby="contact_name-err">
+            <p class="error" id="contact_name-err"></p>
+          </div>
+          <div class="field" data-field="contact_email">
+            <div class="field__head"><label for="contact_email">Primary Contact — Email</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="contact_email" name="contact_email" type="email" required maxlength="254" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="name@company.ae" aria-describedby="contact_email-err">
+            <p class="error" id="contact_email-err"></p>
+          </div>
+          <div class="field" data-field="contact_phone">
+            <div class="field__head"><label for="contact_phone">Primary Contact — Phone</label><span class="tag tag--req">Mandatory</span></div>
+            <input id="contact_phone" name="contact_phone" type="tel" required maxlength="20" autocomplete="tel" placeholder="+971 50 123 4567" aria-describedby="contact_phone-hint contact_phone-err">
+            <p class="hint" id="contact_phone-hint">Mobile or landline, with country code for non-UAE numbers</p>
+            <p class="error" id="contact_phone-err"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ===== Notes & declaration ===== -->
+      <section class="section notes" aria-labelledby="notesTitle">
+        <h3 class="section__title" id="notesTitle">Important notes</h3>
+        <p class="notes__key"><strong>Suppliers:</strong> A valid Union Coop LPO / Contract reference (e.g. LP, BP, NO, etc.) must be mentioned on every invoice submitted to Union Coop. This reference is a mandatory condition for invoice submission.</p>
+        <ul class="notes__list">
+          <li>The list above reflects our currently known data requirements. Additional data points may be requested following further technical review.</li>
+          <li>Should any of the above information change, please notify Union Coop promptly to keep our e-invoicing master data accurate.</li>
+          <li>From the e-invoicing go-live date, paper, printed or handwritten invoices will no longer be accepted unless explicitly required under local law.</li>
+        </ul>
+
+        <div class="field" data-field="ack_lpo">
+          <label class="check">
+            <input type="checkbox" id="ack_lpo" name="ack_lpo" required aria-describedby="ack_lpo-err">
+            <span>I understand that a valid Union Coop LPO / Contract reference must appear on every invoice we submit.</span>
+          </label>
+          <p class="error" id="ack_lpo-err"></p>
+        </div>
+        <div class="field" data-field="declaration">
+          <label class="check">
+            <input type="checkbox" id="declaration" name="declaration" required aria-describedby="declaration-err">
+            <span>I confirm that the information provided is accurate and that I am authorised to submit it on behalf of the entity named above.</span>
+          </label>
+          <p class="error" id="declaration-err"></p>
+        </div>
+      </section>
+
+      <div class="form__actions">
+        <button type="submit" class="btn btn--primary" id="submitBtn">Submit details</button>
+      </div>
+    </form>
+
+    <!-- ============ Success ============ -->
+    <section class="wrap success" id="successPanel" tabindex="-1" hidden aria-labelledby="successTitle">
+      <div class="success__badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="32" height="32"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 id="successTitle">Thank you — your details have been submitted</h2>
+      <p class="success__ref">Reference: <strong id="refNo"></strong></p>
+      <p class="callout callout--info" id="demoNotice" hidden>Preview mode: no submission endpoint is configured yet, so these details were <strong>not</strong> sent to Union Coop. Please save a copy below.</p>
+      <p>Please keep this reference for your records. Should any of this information change, notify Union Coop promptly.</p>
+      <dl class="summary" id="summary"></dl>
+      <div class="success__actions">
+        <button type="button" class="btn btn--primary" id="printBtn">Print / save as PDF</button>
+        <button type="button" class="btn btn--ghost" id="downloadBtn">Download copy (JSON)</button>
+        <button type="button" class="btn btn--ghost" id="newBtn">Submit another form</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky progress / action bar -->
+  <div class="progress-bar" id="progressBar" role="region" aria-label="Form progress">
+    <div class="wrap progress-bar__inner">
+      <div class="progress-bar__meter">
+        <span class="progress-bar__label" id="progressLabel">0 of 0 required fields complete</span>
+        <div class="meter" aria-hidden="true"><span id="progressFill"></span></div>
+      </div>
+      <button type="submit" form="einvForm" class="btn btn--primary btn--sm">Submit</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© Union Coop · E-Invoicing — Supplier Data Update Form. The information you provide is used solely to set up compliant e-invoicing with Union Coop.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Cloudflare / Wrangler local state
+.wrangler/
+.dev.vars
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini

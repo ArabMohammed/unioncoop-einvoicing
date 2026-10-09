@@ -4,17 +4,46 @@ A static web form (HTML/CSS/JS, no frameworks or build step) that collects suppl
 
 ## Files
 ```
-index.html            page and form markup
-assets/css/styles.css UC brand styling, responsive layout
-assets/js/app.js      validation, conditional fields, draft autosave, submission
-assets/img/logo.jpg   Union Coop logo (taken from the official form)
+public/                      ← the only folder that gets published
+  index.html                 page and form markup
+  404.html                   "page not found" page
+  _headers                   Cloudflare headers: security policy and caching
+  robots.txt                 keeps the form out of search engines
+  assets/css/styles.css      UC brand styling, responsive layout
+  assets/js/app.js           validation, conditional fields, draft autosave, submission
+  assets/img/logo.jpg        Union Coop logo (taken from the official form)
+wrangler.toml                Cloudflare Pages project settings (output dir = public)
+README.md, *.pdf             project documents; not published
 ```
 
-## Deploy
-Copy the folder to any static web host (IIS, Apache, nginx, Azure Static Web Apps, and so on). Nothing needs to be built or installed.
+## Publish on Cloudflare Pages
+
+**Option A: connect the GitHub repository (recommended; every push redeploys)**
+1. Push this repository to GitHub.
+2. In the Cloudflare dashboard, go to **Workers & Pages → Create → Pages → Connect to Git** and pick the repository.
+3. Use these build settings:
+   - Framework preset: **None**
+   - Build command: *(leave empty)*
+   - Build output directory: **`public`**
+4. Click **Save and Deploy**. The site goes live at `https://<project>.pages.dev`. To use your own domain, add it under **Custom domains**, e.g. `einvoicing.unioncoop.ae`.
+
+**Option B: upload from the command line**
+```bash
+npx wrangler login
+npx wrangler pages deploy        # reads wrangler.toml and uploads ./public
+```
+
+**Option C: upload by drag-and-drop**
+Go to **Workers & Pages → Create → Pages → Upload assets** and drop the **`public`** folder. Upload only that folder, never the project root.
+
+### When you change CSS, JS or the logo
+Assets are cached by browsers for 7 days. After editing `styles.css`, `app.js` or `logo.jpg`, raise the `?v=1` number on their links in `index.html` (and `404.html`), e.g. to `?v=2`, so visitors download the new version straight away.
+
+### If the submission endpoint is on another domain
+`_headers` only lets the page send data to its own domain (`connect-src 'self'`). If `CONFIG.endpoint` points to another domain, add that domain to `connect-src` in `public/_headers`, or the browser will block the submission.
 
 ## Connect a backend
-In `assets/js/app.js`, set `CONFIG.endpoint` to the URL that will receive submissions:
+In `public/assets/js/app.js`, set `CONFIG.endpoint` to the URL that will receive submissions:
 
 ```js
 var CONFIG = { endpoint: 'https://your-server/api/einvoicing/suppliers', ... };
@@ -26,12 +55,18 @@ While `endpoint` is empty, the form runs in **preview mode**: it validates norma
 
 **The server must validate the data again.** Browser-side checks only help the user and can be bypassed.
 
+## Authority ID formats
+Each authority's ID format is defined in the `AUTHORITIES` table at the top of `public/assets/js/app.js`. Passport formats are in `PASSPORT_FORMATS` just below it. Each entry has a pattern, a plain-language description and an example. If an authority changes its numbering, edit its entry there; nothing else needs to change.
+
+> These formats are defaults based on typical licence numbers. Please check them against real licences from your supplier base before going live. A rule that is too strict will block genuine suppliers.
+
 ## Validation rules (summary)
 | Field | Rule |
 |---|---|
 | TRN | 15 digits, starts with 1. Can be marked "not VAT-registered". |
 | TIN | 10 digits, starts with 1. Must equal the first 10 digits of the TRN. Auto-filled from the TRN. Shown as Peppol ID `0235:<TIN>`. |
-| Registration ID | Depends on type. **TL**: 2–30 alphanumeric characters. **EID**: `784-YYYY-NNNNNNN-C` with Luhn check digit. **PAS**: 6–12 alphanumeric characters. **CD**: free format. |
+| Issuing authority | Chosen from a list filtered by ID type: 7 mainland economic departments and 14 free zones for TL, ICP for EID (selected automatically), UAE Cabinet for CD (selected automatically). "Other" asks for the authority name. For PAS, the passport issuing country acts as the authority. |
+| Registration ID | Locked until the issuing authority (or, for passports, the issuing country) is chosen. It is then checked against **that authority's own format**, e.g. Dubai DET 5–7 digits, ADDED `CN-1234567`, DMCC `DMCC-123456`, ICP `784-YYYY-NNNNNNN-C` with Luhn check digit, Cabinet `25/2023`. Passports are checked by country (India, Pakistan, Philippines, UK and US have their own rules; other countries use 6–9 characters). |
 | Expiry date | Must be after today. At most 10 years ahead (100 years for CD). Shows a warning when the date is within 60 days. |
 | Passport country | Required only when the type is PAS. ISO 3166 alpha-2 code. |
 | Emirate | Required when the country is the UAE (codes AUH, DXB, SHJ, AJM, UAQ, RAK, FUJ). |

@@ -1,0 +1,3 @@
+# Supplier form is shared by direct link only — keep it out of search engines.
+User-agent: *
+Disallow: /
