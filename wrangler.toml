@@ -1,5 +1,9 @@
-# Cloudflare Pages project configuration
-# https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+# Cloudflare Workers configuration — static site served from ./public
+# https://developers.cloudflare.com/workers/static-assets/
+# Deploy with: npx wrangler deploy
 name = "unioncoop-einvoicing"
-pages_build_output_dir = "./public"
 compatibility_date = "2026-10-01"
+
+[assets]
+directory = "./public"
+not_found_handling = "404-page"   # serve public/404.html for unknown URLs

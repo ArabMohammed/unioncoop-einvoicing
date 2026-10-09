@@ -12,29 +12,30 @@ public/                      ← the only folder that gets published
   assets/css/styles.css      UC brand styling, responsive layout
   assets/js/app.js           validation, conditional fields, draft autosave, submission
   assets/img/logo.jpg        Union Coop logo (taken from the official form)
-wrangler.toml                Cloudflare Pages project settings (output dir = public)
+wrangler.toml                Cloudflare settings: serve ./public as a static site
 README.md, *.pdf             project documents; not published
 ```
 
-## Publish on Cloudflare Pages
+## Publish on Cloudflare
+
+The site is deployed as a **Cloudflare Worker with static assets**. `wrangler.toml` tells Cloudflare to serve the `public/` folder; there is no build step and no Worker script.
 
 **Option A: connect the GitHub repository (recommended; every push redeploys)**
 1. Push this repository to GitHub.
-2. In the Cloudflare dashboard, go to **Workers & Pages → Create → Pages → Connect to Git** and pick the repository.
-3. Use these build settings:
-   - Framework preset: **None**
+2. In the Cloudflare dashboard, go to **Workers & Pages → Create → Import a repository** and pick the repository.
+3. Use these settings:
    - Build command: *(leave empty)*
-   - Build output directory: **`public`**
-4. Click **Save and Deploy**. The site goes live at `https://<project>.pages.dev`. To use your own domain, add it under **Custom domains**, e.g. `einvoicing.unioncoop.ae`.
+   - Deploy command: **`npx wrangler deploy`** (the default)
+   - Root directory: *(leave empty — the repository root, where `wrangler.toml` is)*
+4. Deploy. The site goes live at `https://unioncoop-einvoicing.<your-subdomain>.workers.dev`. To use your own domain, add it under **Settings → Domains & Routes**, e.g. `einvoicing.unioncoop.ae`.
 
-**Option B: upload from the command line**
+The Worker name in `wrangler.toml` (`unioncoop-einvoicing`) must match the Worker name in the dashboard. If you named it differently there, change `name` in `wrangler.toml` to match.
+
+**Option B: deploy from the command line**
 ```bash
 npx wrangler login
-npx wrangler pages deploy        # reads wrangler.toml and uploads ./public
+npx wrangler deploy              # reads wrangler.toml and uploads ./public
 ```
-
-**Option C: upload by drag-and-drop**
-Go to **Workers & Pages → Create → Pages → Upload assets** and drop the **`public`** folder. Upload only that folder, never the project root.
 
 ### When you change CSS, JS or the logo
 Assets are cached by browsers for 7 days. After editing `styles.css`, `app.js` or `logo.jpg`, raise the `?v=1` number on their links in `index.html` (and `404.html`), e.g. to `?v=2`, so visitors download the new version straight away.
